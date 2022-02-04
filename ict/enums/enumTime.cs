@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace ict.enums
+{
+    public class enumTime
+    {
+        public enum Times
+        {
+            ครึ่งวันเช้า,
+            ครึ่งวันบ่าย,
+            ทั้งวัน
+        }
+    }
+}

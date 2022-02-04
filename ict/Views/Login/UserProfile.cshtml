@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "UserProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.Message !=null)
+{
+    @ViewBag.Message.ToString();
+    @ViewBag.Fullname.ToString();
+    <h1>UserProfile</h1>
+}
+
+

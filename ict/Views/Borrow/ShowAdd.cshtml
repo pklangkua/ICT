@@ -1,0 +1,147 @@
+﻿@using ict;
+@model ict.Models.BorrowsAddModel;
+@{
+    ViewData["Title"] = "ShowAdd";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@{
+    IEnumerable<BorrowsAddModel> BorrowAddDisplay = ViewData["Results"] as IEnumerable<BorrowsAddModel>;
+}
+
+
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>รายการยืมครุภัณฑ์</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item active" aria-current="page">รายการยืมครุภัณฑ์</li>*@
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <a asp-action="Create" class="btn btn-success sm">+ เพิ่มรายการ</a>
+                <p></p>
+                <table class='table table-striped' id="table1">
+                    <thead>
+                        <tr>
+                            <th>เรื่อง</th>
+                            <th>หน่วยงาน</th>
+                            <th>วัตถุประสงค์</th>
+                            <th>ชื่อผู้ยืม</th>
+                            <th>วันที่ขอรับครุภัณฑ์</th>
+                            <th>วันที่คืนครุภัณฑ์</th>
+                            <th>สถานะการอนุมัติ</th>
+                            <th>สถานะการยืม/คืน</th>
+                            <th>รายละเอียด</th>
+                            @if (ViewData["chiefoff"].ToString() == "1")
+                            {
+                                <th>จัดการอนุมัติ</th>
+                            }
+                            @if (ViewData["chiefoff"].ToString() == "2")
+                            {
+                                <th>จัดการยืม/คืน</th>
+                            }
+                            @if (ViewData["chiefoff"].ToString() == "1")
+                            {
+                                <th>#</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in BorrowAddDisplay)
+                        {
+                            <tr>
+                                <td>@item.Subject</td>
+                                <td>@item.Dept</td>
+                                <td>@item.Objectives</td>
+                                <td>@item.NameAdd</td>
+                                <td>@item.Sdate</td>
+                                <td>@item.Edate</td>
+                                <td>
+                                    @if (item.Checks == "1")
+                                    {
+                                        <a href="#" class="badge bg-success">อนุมัติ</a>
+                                    }
+                                    else if (item.Checks == "2")
+                                    {
+                                        <a href="#" class="badge bg-danger">ไม่อนุมัติ</a>
+                                    }
+                                    else if (item.Checks == "0")
+                                    {
+                                        <a href="#" class="badge bg-secondary">รออนุมัติ</a>
+                                    }
+                                </td>
+                                <td>
+                                    @{ int st = item.Status;
+                                        @if (st == 2)
+                                        {
+                                            <a href="#" class="badge bg-success">คืนอุปกรณ์</a>
+                                        }
+                                        else if (st == 1)
+                                        {
+                                            <a href="#" class="badge bg-secondary">อนุมัติ</a>
+                                        }
+                                        else if (st == 3)
+                                        {
+                                            <a href="#" class="badge bg-danger">ปิดงาน</a>
+                                        }
+                                        else if (st == 0)
+                                        {
+                                            <a href="#" class="badge bg-primary">รออนุมัติ</a>
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    <a asp-controller="Borrow"
+                                       asp-action="Detail"
+                                       asp-route-id="@item.Id" class="badge bg-primary">รายละเอียด</a>
+                                </td>
+                                @if (ViewData["chiefoff"].ToString() == "1")
+                                {
+                                    <td>
+                                        @if (item.Status != 3)
+                                        {
+                                            <a asp-controller="Borrow"
+                                               asp-action="Edit_Checks"
+                                               asp-route-id="@item.Id" class="badge bg-success">อนุมัติ</a>
+                                        }
+                                    </td>
+                                }
+                                @if (ViewData["chiefoff"].ToString() == "2")
+                                {
+                                    <td>
+                                        @if (item.Status != 3)
+                                        {
+                                            <a asp-controller="Borrow"
+                                               asp-action="Back"
+                                               asp-route-id="@item.Id" class="badge bg-warning">คืน</a>
+                                        }
+                                    </td>
+                                }
+                                @if (ViewData["chiefoff"].ToString() == "1")
+                                {
+                                    <td>
+                                        <a asp-controller="Borrow"
+                                           asp-action="CloseJob"
+                                           asp-route-id="@item.Id" class="badge bg-danger">ปิดงาน</a>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
