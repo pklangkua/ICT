@@ -1,0 +1,74 @@
+﻿@using ict;
+@model ict.Models.Emplyee;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    IEnumerable<Emplyee> displaydata = ViewData["Results"] as IEnumerable<Emplyee>;
+}
+
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>DashBoard</h3>
+                <p class="text-subtitle text-muted">Textarea with rich features </p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Form Editor</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Snow Editor</h4>
+            </div>
+            <div class="card-body">
+                <p>
+                    <a asp-action="Create" class="btn btn-success sm">Create New</a>
+                </p>
+                <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>HireDate</th>
+                        <th>Salary</th>
+                        <th>จัดการ</th>
+                    </tr>
+                    @foreach (var item in displaydata)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Gender</td>
+                            <td>@item.Age</td>
+                            <td>@item.Position</td>
+                            <td>@item.Office</td>
+                            <td>@item.HireDate</td>
+                            <td>@item.Salary</td>
+                            <td>
+                                @*<a  href="Edit?ID=@item.EmployeeId" class="btn btn-danger">แก้ไขข้อมูล</a>*@
+                                <a asp-controller="Emplyee"
+                                   asp-action="Edit"
+                                   asp-route-id="@item.EmployeeId" class="btn btn-danger sm">edit</a>
+                                <a asp-controller="Emplyee"
+                                   asp-action="Delete"
+                                   asp-route-id="@item.EmployeeId" class="btn btn-danger sm">ลบ</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </section>
+</div>

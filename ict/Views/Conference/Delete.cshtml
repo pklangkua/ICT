@@ -1,0 +1,64 @@
+﻿@model ict.Models.ConferenceModel
+
+
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>ลบการจอง Tele Conference</h3>
+                @*<p class="text-subtitle text-muted">Textarea with rich features </p>*@
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item"><a asp-action="Index">จอง Conference</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">ลบการจอง Conference</li>*@
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+    <hr />
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">@Html.DisplayFor(model => model.DtTitle)</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    @*<dt class="col-sm-2">
+                            @Html.DisplayNameFor(model => model.ConID)
+                        </dt>
+                        <dd class="col-sm-10">
+                            @Html.DisplayFor(model => model.ConID)
+                        </dd>*@
+
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.DtDate)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.DtDate)
+                    </dd>
+
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.DtDate2)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.DtDate2)
+                    </dd>
+
+                </dl>
+
+                <form asp-action="Delete">
+                    <input type="submit" value="ลบ" class="btn btn-danger" />
+
+                </form>
+                <div>
+                   <p></p> <a onclick="window.history.back()" href="#"><< ย้อนกลับ</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
