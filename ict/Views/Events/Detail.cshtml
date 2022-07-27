@@ -1,0 +1,208 @@
+﻿@model ict.Models.EventsModel
+
+@{ 
+    IEnumerable<EventsDetailModel> DetailShows = ViewData["DetailShows"] as IEnumerable<EventsDetailModel>;
+}
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h4>รายละเอียด</h4>
+                @*<p class="text-subtitle text-muted">Textarea with rich features </p>*@
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item"><a asp-action="Index">จอง Conference</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">สร้างการจอง Conference</li>*@
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+    <hr />
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">เรื่อง @Html.DisplayFor(model => model.e_name)</h4>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.e_sdate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.e_sdate)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.e_edate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.e_edate)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.e_other)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.e_other)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.e_president)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.e_president)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.e_state_name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.e_state_name)
+                    </dd>
+                </dl>
+            </div>
+            @*<div>
+                    <p></p><a onclick="window.history.back()" href="#"> ย้อนกลับ</a>
+                </div>*@
+        </div>
+    </section>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">รายละเอียดเอกสาร</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <table class='table table-striped' id="table1" cellspacing="0" cellpadding="3" width="100%">
+                        <thead>
+                            <tr>
+                                <th style="width:200px">วาระ</th>
+                                <th>เรื่อง</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="width:auto" colspan="4"><span style="font-weight:bold">ระเบียบวาระที่ 1 เรื่องแจ้งให้ที่ประชุมทราบ</span></td>
+                            </tr>
+
+                            @foreach (var detail in DetailShows)
+                            {
+                                if (detail.t_id == 1)
+                                {
+
+                                    <tr>
+                                        <td style="width:200px">&emsp;วาระที่ @detail.t_id.@detail.ed_num</td>
+                                        <td>
+                                            @if (detail.ed_file.Length != 0)
+                                            {
+                                                <a href="~/File/@detail.ed_file">@detail.ed_name</a>
+                                            }
+                                            else
+                                            {
+                                                @detail.ed_name
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td style="width:auto" colspan="4"><span style="font-weight:bold">ระเบียบวาระที่ 2 รับรองรายงานการประชุม</span></td>
+                            </tr>
+                            @foreach (var detail in DetailShows)
+                            {
+                                if (detail.t_id == 2)
+                                {
+
+                                    <tr>
+                                        <td style="width:200px">&emsp;วาระที่ @detail.t_id.@detail.ed_num</td>
+                                        <td>
+                                            @if (detail.ed_file.Length != 0)
+                                            {
+                                                <a href="~/File/@detail.ed_file">@detail.ed_name</a>
+                                            }
+                                            else
+                                            {
+                                                @detail.ed_name
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td style="width:auto" colspan="4"><span style="font-weight:bold">ระเบียบวาระที่ 3 เรื่องสืบเนื่อง</span></td>
+                            </tr>
+                            @foreach (var detail in DetailShows)
+                            {
+                                if (detail.t_id == 3)
+                                {
+
+                                    <tr>
+                                        <td style="width:200px">&emsp;วาระที่ @detail.t_id.@detail.ed_num</td>
+                                        <td>
+                                            @if (detail.ed_file.Length != 0)
+                                            {
+                                                <a href="~/File/@detail.ed_file">@detail.ed_name</a>
+                                            }
+                                            else
+                                            {
+                                                @detail.ed_name
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td style="width:auto" colspan="4"><span style="font-weight:bold">ระเบียบวาระที่ 4 เรื่องเพื่อพิจารณา</span></td>
+                            </tr>
+                            @foreach (var detail in DetailShows)
+                            {
+                                if (detail.t_id == 4)
+                                {
+
+                                    <tr>
+                                        <td style="width:200px">&emsp;วาระที่ @detail.t_id.@detail.ed_num</td>
+                                        <td>
+                                            @if (detail.ed_file.Length != 0)
+                                            {
+                                                <a href="~/File/@detail.ed_file">@detail.ed_name</a>
+                                            }
+                                            else
+                                            {
+                                                @detail.ed_name
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td style="width:auto" colspan="4">
+                                    <span style="font-weight:bold">ระเบียบวาระที่ 5 เรื่องอื่นๆ</span>
+                                </td>
+                            </tr>
+                            @foreach (var detail in DetailShows)
+                            {
+                                if (detail.t_id == 5)
+                                {
+
+                                    <tr>
+                                        <td style="width:200px">&emsp;วาระที่ @detail.t_id.@detail.ed_num</td>
+                                        <td>
+                                            @if (detail.ed_file.Length != 0)
+                                            {
+                                                <a href="~/File/@detail.ed_file">@detail.ed_name</a>
+                                            }
+                                            else
+                                            {
+                                                @detail.ed_name
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

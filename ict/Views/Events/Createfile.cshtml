@@ -1,0 +1,254 @@
+﻿@model ict.Models.EventsDetailModel
+@{
+    IEnumerable<termModel> displaydata = ViewData["termData"] as IEnumerable<termModel>;
+    IEnumerable<EventsDetailModel> DetailShows = ViewData["DetailShows"] as IEnumerable<EventsDetailModel>;
+
+}
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h4>รายละเอียด</h4>
+                @*<p class="text-subtitle text-muted">Textarea with rich features </p>*@
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item"><a asp-action="Index">จอง Conference</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">สร้างการจอง Conference</li>*@
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+    <hr />
+
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">รายละเอียด  @ViewData["EData"]</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <form asp-action="Createfile" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label asp-for="t_id" class="control-label"></label>
+                                <select asp-for="t_id" class="form-control">
+                                    <option value="" disabled selected>กรุณาเลือก</option>
+                                    @foreach (var item in displaydata)
+                                    {
+                                        <option value="@item.t_id">@item.t_name</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="t_id" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ed_num" class="control-label"></label>
+                                <input asp-for="ed_num" class="form-control" />
+                                <span asp-validation-for="ed_num" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ed_name" class="control-label"></label>
+                                <input asp-for="ed_name" class="form-control" />
+                                <span asp-validation-for="ed_name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ed_detail" class="control-label"></label>
+                                <input asp-for="ed_detail" class="form-control" />
+                                <span asp-validation-for="ed_detail" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ed_file" class="control-label"></label>
+                                <span class="text-danger"> ไฟล์ที่สามารถอัพได้ "pdf, word, excel, powerpoint"</span>
+                                <input type="file" asp-for="ed_file" class="form-control" />
+                                <span asp-validation-for="ed_file" class="text-danger">@ViewBag.ErrorType</span>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" asp-for="e_id" class="form-control" value="" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="เพิ่ม" class="btn btn-success" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <table class='table table-striped' id="table1" cellspacing="0" cellpadding="3" width="100%">
+                    <thead>
+                        <tr>
+                            <th style="width:200px">ระเบียบวาระ</th>
+                            <th>เรื่อง</th>
+                            <th style="width:40px">ลบ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width:auto" colspan="4"><span style="font-weight:bold">ระเบียบวาระที่ 1 เรื่องแจ้งให้ที่ประชุมทราบ</span></td>
+                        </tr>
+
+                        @foreach (var detail in DetailShows)
+                        {
+                            if (detail.t_id == 1)
+                            {
+
+                                <tr>
+                                    <td style="width:200px">&emsp;วาระที่ @detail.t_id.@detail.ed_num</td>
+                                    <td>
+                                        @if (detail.ed_file.Length != 0)
+                                        {
+                                            <a href="~/File/@detail.ed_file">@detail.ed_name</a>
+                                        }
+                                        else
+                                        {
+                                            @detail.ed_name
+                                        }
+                                    </td>
+                                    <td style="width:40px">
+                                        <a asp-controller="Events"
+                                           asp-action="DeleteDetail"
+                                           asp-route-id="@detail.ed_id" class="btn btn-danger btn-sm ">
+                                            <i data-feather="trash-2" width="20"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        <tr>
+                            <td style="width:auto" colspan="4"><span style="font-weight:bold">ระเบียบวาระที่ 2 รับรองรายงานการประชุม</span></td>
+                        </tr>
+                        @foreach (var detail in DetailShows)
+                        {
+                            if (detail.t_id == 2)
+                            {
+
+                                <tr>
+                                    <td style="width:200px">&emsp;วาระที่ @detail.t_id.@detail.ed_num</td>
+                                    <td>
+                                        @if (detail.ed_file.Length != 0)
+                                        {
+                                            <a href="~/File/@detail.ed_file">@detail.ed_name</a>
+                                        }
+                                        else
+                                        {
+                                            @detail.ed_name
+                                        }
+                                    </td>
+                                    <td style="width:40px">
+                                        <a asp-controller="Events"
+                                           asp-action="DeleteDetail"
+                                           asp-route-id="@detail.ed_id" class="btn btn-danger btn-sm ">
+                                            <i data-feather="trash-2" width="20"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        <tr>
+                            <td style="width:auto" colspan="4"><span style="font-weight:bold">ระเบียบวาระที่ 3 เรื่องสืบเนื่อง</span></td>
+                        </tr>
+                        @foreach (var detail in DetailShows)
+                        {
+                            if (detail.t_id == 3)
+                            {
+
+                                <tr>
+                                    <td style="width:200px">&emsp;วาระที่ @detail.t_id.@detail.ed_num</td>
+                                    <td>
+                                        @if (detail.ed_file.Length != 0)
+                                        {
+                                            <a href="~/File/@detail.ed_file">@detail.ed_name</a>
+                                        }
+                                        else
+                                        {
+                                            @detail.ed_name
+                                        }
+                                    </td>
+                                    <td style="width:40px">
+                                        <a asp-controller="Events"
+                                           asp-action="DeleteDetail"
+                                           asp-route-id="@detail.ed_id" class="btn btn-danger btn-sm ">
+                                            <i data-feather="trash-2" width="20"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        <tr>
+                            <td style="width:auto" colspan="4"><span style="font-weight:bold">ระเบียบวาระที่ 4 เรื่องเพื่อพิจารณา</span></td>
+                        </tr>
+                        @foreach (var detail in DetailShows)
+                        {
+                            if (detail.t_id == 4)
+                            {
+
+                                <tr>
+                                    <td style="width:200px">&emsp;วาระที่ @detail.t_id.@detail.ed_num</td>
+                                    <td>
+                                        @if (detail.ed_file.Length != 0)
+                                        {
+                                            <a href="~/File/@detail.ed_file">@detail.ed_name</a>
+                                        }
+                                        else
+                                        {
+                                            @detail.ed_name
+                                        }
+                                    </td>
+                                    <td style="width:40px">
+                                        <a asp-controller="Events"
+                                           asp-action="DeleteDetail"
+                                           asp-route-id="@detail.ed_id" class="btn btn-danger btn-sm ">
+                                            <i data-feather="trash-2" width="20"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        <tr>
+                            <td style="width:auto" colspan="4">
+                                <span style="font-weight:bold">ระเบียบวาระที่ 5 เรื่องอื่นๆ</span>
+                            </td>
+                        </tr>
+                        @foreach (var detail in DetailShows)
+                        {
+                            if (detail.t_id == 5)
+                            {
+
+                                <tr>
+                                    <td style="width:200px">&emsp;วาระที่ @detail.t_id.@detail.ed_num</td>
+                                    <td>
+                                        @if (detail.ed_file.Length != 0)
+                                        {
+                                            <a href="~/File/@detail.ed_file">@detail.ed_name</a>
+                                        }
+                                        else
+                                        {
+                                            @detail.ed_name
+                                        }
+                                    </td>
+                                    <td style="width:40px">
+                                        <a asp-controller="Events"
+                                           asp-action="DeleteDetail"
+                                           asp-route-id="@detail.ed_id" class="btn btn-danger btn-sm ">
+                                            <i data-feather="trash-2" width="20"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>

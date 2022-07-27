@@ -11,15 +11,30 @@ using ict.Models;
 using ict.enums;
 using System.Web.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Routing;
 
 namespace ict.Controllers
 {
     public class RepairController : Controller
     {
-        // GET: RepairController
+        SqlConnection sqlconn = new DBClass().SqlStrCon();
+        LineNotification sent = new LineNotification();
+        Datetime date = new Datetime();
         public ActionResult Index()
         {
+            ViewData["Username"] = HttpContext.Session.GetString("Username");
+            ViewData["fullname"] = HttpContext.Session.GetString("fullname");
+            ViewBag.Message = HttpContext.Session.GetInt32("IsActive").ToString();
+            ViewData["OfficeName"] = HttpContext.Session.GetString("OfficeName");
+
+            return View();
+        }
+        public ActionResult Create()
+        {
+            ViewData["Username"] = HttpContext.Session.GetString("Username");
+            ViewData["fullname"] = HttpContext.Session.GetString("fullname");
+            ViewBag.Message = HttpContext.Session.GetInt32("IsActive").ToString();
+            ViewData["OfficeName"] = HttpContext.Session.GetString("OfficeName");
+
             return View();
         }
     }

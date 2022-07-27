@@ -52,22 +52,21 @@ namespace ict.Controllers
             }
             else
             {
-                TempData["URL"]= "Conference/Create";
+                TempData["URL"] = "Conference/Create";
                 //return RedirectToAction("Index", "Login", new { page = "/Conference/Create" });
-                 return RedirectToAction("Index", "Login");
+                return RedirectToAction("Index", "Login");
             }
-                
-        }
 
+        }
         public List<ConferenceModel> ConferenceDisplay()
         {
             List<ConferenceModel> con = new List<ConferenceModel>();
             string Ssql = "select c.*,s.S_Name from conference c INNER JOIN State s on s.S_Id = c.DtState order by ConID desc";
             SqlCommand sqlcomm = new SqlCommand(Ssql);
-            SqlDataAdapter sda = new SqlDataAdapter();
+            //SqlDataAdapter sda = new SqlDataAdapter();
             sqlcomm.Connection = sqlconn;
             sqlconn.Open();
-            sda.SelectCommand = sqlcomm;
+           // sda.SelectCommand = sqlcomm;
 
             SqlDataReader sdr = sqlcomm.ExecuteReader();
             while (sdr.Read())
@@ -87,6 +86,7 @@ namespace ict.Controllers
 
                 con.Add(conf);
             }
+            sqlconn.Close();
             return con;
         }
         public List<ConferenceModel> ConferenceDisplay2()
@@ -206,7 +206,6 @@ namespace ict.Controllers
             }
 
         }
-
         public ActionResult Delete(int? id)
         {
             ViewData["Username"] = HttpContext.Session.GetString("Username");
@@ -560,6 +559,6 @@ namespace ict.Controllers
                 return RedirectToAction("Index", "Login");
         }
 
-        
+
     }
 }

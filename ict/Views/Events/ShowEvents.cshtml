@@ -1,0 +1,88 @@
+﻿@using ict;
+@model ict.Models.EventsModel;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    IEnumerable<EventsModel> displaydata = ViewData["Results"] as IEnumerable<EventsModel>;
+
+}
+
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>รายการเอกสาร</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item active" aria-current="page">รายการจอง Tele Conference</li>*@
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+            </div>
+            <div class="card-body">
+                <a asp-action="Create" class="btn btn-success sm">+ เพิ่มรายการ</a>
+                <p></p>
+                <table class='table table-striped' id="table1" cellspacing="0" cellpadding="3" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="white-space:nowrap">เรื่อง</th>
+                            <th class="text-center" style="white-space:nowrap">วันที่</th>
+                            <th class="text-center" style="white-space:nowrap">ถึงวันที่</th>
+                            <th class="text-center" style="white-space:nowrap">ประธาน</th>
+                            <th class="text-center" style="white-space:nowrap">เรื่องอื่น</th>
+                            <th class="text-center" style="white-space:nowrap">สถานที่</th>
+                            <th class="text-center" style="white-space:nowrap">รายละเอียด</th>
+                            <th class="text-center" style="white-space:nowrap">เพิ่มไฟล์</th>
+                            <th class="text-center">ลบ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in displaydata)
+                        {
+                            <tr>
+                                <td style="white-space:nowrap">@item.e_name</td>
+                                <td>@item.e_sdate</td>
+                                <td>@item.e_edate</td>
+                                <td>@item.e_president</td>
+                                <td>@item.e_other</td>
+                                <td style="white-space:nowrap">@item.e_state_name</td>
+                                <td>
+                                    <a asp-controller="Events"
+                                       asp-action="Detail"
+                                       asp-route-id="@item.e_id" class="btn btn-success btn-sm ">
+                                        <i data-feather="edit" width="20"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a asp-controller="Events"
+                                       asp-action="Createfile"
+                                       asp-route-id="@item.e_id" class="btn btn-secondary btn-sm ">
+                                        <i data-feather="plus-circle" width="20"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a asp-controller="Events"
+                                       asp-action="Delete"
+                                       asp-route-id="@item.e_id" class="btn btn-danger btn-sm ">
+                                        <i data-feather="trash-2" width="20"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+</div>

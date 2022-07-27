@@ -1,0 +1,94 @@
+﻿@model ict.Models.EventsModel
+@{ 
+    IEnumerable<StateModel> StatesData = ViewData["State"] as IEnumerable<StateModel>;
+}
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>สร้างเอกสารการประชุม</h3>
+                @*<p class="text-subtitle text-muted">@ViewData["Username"]</p>*@
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                    <ol class="breadcrumb">
+                        @*<li class="breadcrumb-item"><a asp-action="Index">จอง Tele Conference</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">สร้างการจอง Tele Conference</li>*@
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+    <hr />
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                @*<h4 class="card-title">Tele Conference</h4>
+                <div class="text-danger">กรุณาใส่ข้อมูลให้ครบทุกช่อง ช่องไหนที่ไม่ทราบข้อมูลให้ใส่เครื่องหมาย ( - )</div>*@
+            </div>
+            <div class="card-body">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="e_name" class="control-label"></label>
+                        <input asp-for="e_name" class="form-control" />
+                        <span asp-validation-for="e_name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="e_president" class="control-label"></label>
+                        <input asp-for="e_president" class="form-control" />
+                        <span asp-validation-for="e_president" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="e_state" class="control-label"></label>
+                        <select asp-for="e_state" class="form-control">
+                            <option value="" disabled selected>กรุณาเลือก</option>
+                            @foreach (var item in StatesData)
+                            {
+                                <option value="@item.S_Id">@item.S_Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="e_state" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="e_sdate" class="control-label"></label>
+                        <input asp-for="e_sdate" class="form-control" />
+                        <span asp-validation-for="e_sdate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="e_edate" class="control-label"></label>
+                        <input asp-for="e_edate" class="form-control" />
+                        <span asp-validation-for="e_edate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="e_create" class="control-label"></label>
+                        <input asp-for="e_create" class="form-control" value="@ViewData["fullname"]" readonly />
+                        <span asp-validation-for="e_create" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="e_dept" class="control-label"></label>
+                        <input asp-for="e_dept" class="form-control" value="@ViewData["OfficeName"]" readonly />
+                        <span asp-validation-for="e_dept" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="e_other" class="control-label"></label>
+                        <textarea asp-for="e_other" class="form-control"></textarea>
+                        @*<input asp-for="e_other" class="form-control" />*@
+                        <span asp-validation-for="e_other" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="บันทึกข้อมูล" class="btn btn-success" />
+                    </div>
+                </form>
+                <div>
+                    <a onclick="window.history.back()" href="#"><< ย้อนกลับ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

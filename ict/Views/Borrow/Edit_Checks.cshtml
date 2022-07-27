@@ -1,7 +1,6 @@
 ﻿@model ict.Models.BorrowsAddModel;
 @using ict.Models
 @{
-
     IEnumerable<BorrowModel> Bowdata = ViewData["Res"] as IEnumerable<BorrowModel>;
     IEnumerable<ListHardWare> HardWare = ViewData["HardWare"] as IEnumerable<ListHardWare>;
     IEnumerable<Login> NameAdd = ViewData["NameAdd"] as IEnumerable<Login>;
@@ -201,7 +200,7 @@
             </div>
             <div class="card-body">
                 <p><h3>เลือกครุภัณฑ์</h3></p>
-                <form asp-action="Edit_Checks" name="Acction" >
+                <form asp-action="Edit_Checks" name="Acction">
                     <table class='table table-striped' id="table1">
                         <thead>
                             <tr>
@@ -233,10 +232,12 @@
                         <div class="form-group">
                             <label asp-for="Cname" class="control-label">ผู้รับผิดชอบ :</label>
                             <select asp-for="Cname" class="form-control">
-                                @*<option disabled selected>กรุณาเลือก</option>*@
-                                @foreach (var item2 in NameAdd)
-                                {
-                                    <option value="@item2.fullname">@item2.fullname</option>
+
+                                @{
+                                    foreach (var item2 in NameAdd)
+                                    {
+                                        <option value="@item2.fullname">@item2.fullname</option>
+                                    }
                                 }
                             </select>
                             <span asp-validation-for="Cname" class="text-danger"></span>
